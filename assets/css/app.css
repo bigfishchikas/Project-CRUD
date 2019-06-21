@@ -1,0 +1,10 @@
+/* This file is for your main application css. */
+
+@import "./phoenix.css";
+
+@media (min-width: 768px) {
+    .container {
+      max-width: 730px;
+    }
+  }
+
