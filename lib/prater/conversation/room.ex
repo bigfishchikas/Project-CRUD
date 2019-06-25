@@ -3,6 +3,9 @@ defmodule Prater.Conversation.Room do
   import Ecto.Changeset
 
   schema "rooms" do
+    
+    belongs_to :user, Prater.Auth.User
+
     field :description, :string
     field :name, :string
     field :topic, :string
