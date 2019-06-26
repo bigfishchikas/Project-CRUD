@@ -23,6 +23,7 @@
                         'Elixir.PraterWeb.Plugs.SetCurrentUser',
                         'Elixir.PraterWeb.RegistrationController',
                         'Elixir.PraterWeb.RegistrationView',
+                        'Elixir.PraterWeb.RoomChannel',
                         'Elixir.PraterWeb.RoomController',
                         'Elixir.PraterWeb.RoomView','Elixir.PraterWeb.Router',
                         'Elixir.PraterWeb.Router.Helpers',

@@ -6,7 +6,8 @@
 //
 // Pass the token on params as below. Or remove it
 // from the params if you are not using authentication.
-import {Socket} from "phoenix"
+//import {Socket} from "phoenix"
+import socket from "./socket"
 
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
@@ -53,11 +54,38 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 //
 // Finally, connect to the socket:
 socket.connect()
+let channelRoomId = window.channelRoomId
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+if (channelRoomId) {
+let channel = socket.channel("room:lobby", {})
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 export default socket
+channel.on("room:lobby:new_message", (message) => {
+  console.log("message", message)
+  renderMessage(message)
+});
+
+
+document.querySelector("#new-message").addEventListener('submit', (e) => {
+  e.preventDefault()
+  let messageInput = e.target.querySelector('#message-content')
+
+  channel.push('message:add', { message: messageInput.value })
+
+  messageInput.value = ""
+});
+}
+
+const renderMessage = function(message) {
+  let messageTemplate = `
+    <li class="list-group-item">
+      <strong>${message.user.username}</strong>:
+      ${message.content}
+    </li>
+  `
+  document.querySelector("#messages").innerHTML += messageTemplate
+};

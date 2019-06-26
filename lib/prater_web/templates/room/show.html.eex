@@ -10,3 +10,14 @@
     <%= link "Delete", to: Routes.room_path(@conn, :delete, @room), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
   </div>
 <% end %>
+
+<ul class="list-group mt-5" id="messages"></ul>
+
+<form class="input-group mt-3" id="new-message">
+  <input type="text" class="form-control" placeholder="Message #<%= @room.name  %>" id="message-content" />
+  <div class="input-group-append">
+    <button class="btn btn-outline-success" type="submit">Send</button>
+  </div>
+
+   <script>window.channelRoomId = "<%= @room.id %>"</script>
+</div>

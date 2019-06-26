@@ -3,7 +3,7 @@ defmodule Prater.Auth do
   alias Prater.Auth.User
 
   def sign_in(email, password) do
-    IO.inspect(email, label: "234567890-")
+    #IO.inspect(email, label: "234567890-")
     user = Repo.get_by(User, email: email)
 
     cond do
