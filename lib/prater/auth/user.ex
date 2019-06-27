@@ -11,6 +11,8 @@ defmodule Prater.Auth.User do
     field :email, :string
     field :encrypted_password, :string
     field :username, :string
+    # has_many :rooms, Prater.Conversation.Room
+    # has_many :messages, Prater.Conversation.Message
 
     timestamps()
   end

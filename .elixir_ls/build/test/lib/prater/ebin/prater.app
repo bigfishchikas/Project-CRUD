@@ -8,6 +8,7 @@
                         'Elixir.Prater.Auth','Elixir.Prater.Auth.Authorizer',
                         'Elixir.Prater.Auth.User',
                         'Elixir.Prater.Conversation',
+                        'Elixir.Prater.Conversation.Message',
                         'Elixir.Prater.Conversation.Room',
                         'Elixir.Prater.DataCase','Elixir.Prater.Repo',
                         'Elixir.PraterWeb','Elixir.PraterWeb.ChannelCase',

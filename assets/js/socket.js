@@ -89,7 +89,10 @@ if (channelRoomId) {
   
 let channel = socket.channel("room:lobby", {})
 channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("ok", resp => {
+    console.log("Joined successfully", resp)
+    resp.messages.reverse().map(message => renderMessage(message))
+  })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 export default socket
