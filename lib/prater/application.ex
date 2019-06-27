@@ -1,19 +1,20 @@
 defmodule Prater.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
-  @moduledoc false
-
   use Application
 
+  # See https://hexdocs.pm/elixir/Application.html
+  # for more information on OTP Applications
   def start(_type, _args) do
-    # List all child processes to be supervised
+    import Supervisor.Spec
+
+    # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      Prater.Repo,
+      supervisor(Prater.Repo, []),
       # Start the endpoint when the application starts
-      PraterWeb.Endpoint
-      # Starts a worker by calling: Prater.Worker.start_link(arg)
-      # {Prater.Worker, arg},
+      supervisor(PraterWeb.Endpoint, []),
+      # Start your own worker by calling: Prater.Worker.start_link(arg1, arg2, arg3)
+      # worker(Prater.Worker, [arg1, arg2, arg3]),
+      supervisor(PraterWeb.Presence, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

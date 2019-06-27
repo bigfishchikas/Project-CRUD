@@ -9,6 +9,9 @@
 //import {Socket} from "phoenix"
 import socket from "./socket"
 
+import {Socket, Presence} from "phoenix"
+
+
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
 // When you connect, you'll often need to authenticate the client.
@@ -53,11 +56,37 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 //     end
 //
 // Finally, connect to the socket:
+
 socket.connect()
 let channelRoomId = window.channelRoomId
+let presences = {};
 
 // Now that you are connected, you can join channels with a topic:
 if (channelRoomId) {
+
+  document.querySelector("#message-content").addEventListener('keydown', () => {
+    userStartsTyping()
+    clearTimeout(typingTimer);
+  })
+  
+  document.querySelector("#message-content").addEventListener('keyup', () => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(userStopsTyping, typingTimeout);
+  })
+
+  const userStartsTyping = function() {
+    if (userTyping) { return }
+  
+    userTyping = true
+    channel.push('user:typing', { typing: true })
+  }
+
+  const userStopsTyping = function() {
+    clearTimeout(typingTimer);
+    userTyping = false
+    channel.push('user:typing', { typing: false })
+  }
+  
 let channel = socket.channel("room:lobby", {})
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
@@ -89,3 +118,37 @@ const renderMessage = function(message) {
   `
   document.querySelector("#messages").innerHTML += messageTemplate
 };
+
+
+
+
+channel.on("presence_state", state => {
+  presences = Presence.syncState(presences, state)
+  renderOnlineUsers(presences)
+})
+
+channel.on("presence_diff", diff => {
+  presences = Presence.syncDiff(presences, diff)
+  renderOnlineUsers(presences)
+})
+
+const renderOnlineUsers = function(presences) {
+  let onlineUsers = Presence.list(presences, (_id, {metas: [user, ...rest]}) => {
+    return onlineUserTemplate(user);
+  }).join("")
+
+  document.querySelector("#online-users").innerHTML = onlineUsers;
+}
+
+const onlineUserTemplate = function(user) {
+  var typingIndicator = ''
+  if (user.typing) {
+    typingIndicator = ' <i>(typing...)</i>'
+  }
+
+  return `
+    <div id="online-user-${user.user_id}">
+      <strong class="text-secondary">${user.username}</strong> ${typingIndicator}
+    </div>
+  `
+}

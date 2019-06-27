@@ -20,4 +20,13 @@
   </div>
 
    <script>window.channelRoomId = "<%= @room.id %>"</script>
-</div>
+
+   <div class="col-md-3">
+      <div class="card">
+        <h5 class="card-header text-white bg-secondary">Online:</h5>
+          <div class="card-body">
+            <div id="online-users"></div>
+          </div>
+      </div>
+    </div>
+  </div>

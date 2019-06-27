@@ -21,6 +21,7 @@
                         'Elixir.PraterWeb.PageView',
                         'Elixir.PraterWeb.Plugs.AuthenticateUser',
                         'Elixir.PraterWeb.Plugs.SetCurrentUser',
+                        'Elixir.PraterWeb.Presence',
                         'Elixir.PraterWeb.RegistrationController',
                         'Elixir.PraterWeb.RegistrationView',
                         'Elixir.PraterWeb.RoomChannel',
