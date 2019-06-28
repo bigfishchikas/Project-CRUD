@@ -6,7 +6,7 @@
               {description,"prater"},
               {modules,['Elixir.Prater','Elixir.Prater.Application',
                         'Elixir.Prater.Auth','Elixir.Prater.Auth.Authorizer',
-                        'Elixir.Prater.Auth.User',
+                        'Elixir.Prater.Auth.User','Elixir.Prater.AuthHelpers',
                         'Elixir.Prater.Conversation',
                         'Elixir.Prater.Conversation.Message',
                         'Elixir.Prater.Conversation.Room',

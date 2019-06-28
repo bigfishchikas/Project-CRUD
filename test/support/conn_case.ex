@@ -23,6 +23,7 @@ defmodule PraterWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint PraterWeb.Endpoint
+      import Prater.AuthHelpers
     end
   end
 

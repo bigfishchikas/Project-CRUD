@@ -45,3 +45,5 @@ defmodule Prater.Auth.User do
     end
   end
 end
+
+
