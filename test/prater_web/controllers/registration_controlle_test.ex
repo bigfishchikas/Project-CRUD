@@ -1,5 +1,7 @@
 defmodule PraterWeb.RegistrationControllerTest do
   use PraterWeb.ConnCase
+  alias Prater.Auth.User
+  import Ecto.Query
 
   test "GET /registrations/new", %{conn: conn} do
     conn = get conn, "/registrations/new"
@@ -21,8 +23,7 @@ defmodule PraterWeb.RegistrationControllerTest do
   end
 
   defp get_last_user do
-    alias Prater.Auth.User
-    import Ecto.Query
+    
 
     Prater.Repo.one(from u in User, order_by: [desc: u.id], limit: 1)
   end

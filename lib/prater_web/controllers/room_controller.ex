@@ -74,7 +74,7 @@ defmodule PraterWeb.RoomController do
     |> redirect(to: Routes.room_path(conn, :index))
   end
 
- 
+
 
   defp authorize_user(conn, _params) do
     %{params: %{"id" => room_id}} = conn
@@ -88,6 +88,8 @@ defmodule PraterWeb.RoomController do
       |> redirect(to: Routes.room_path(conn, :index))
       |> halt()
     end
+
+    
   end
 
 end

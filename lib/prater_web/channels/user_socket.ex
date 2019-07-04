@@ -1,8 +1,13 @@
 defmodule PraterWeb.UserSocket do
   use Phoenix.Socket
 
+
   ## Channels
   channel "room:*", PraterWeb.RoomChannel
+
+
+  transport :websocket, Phoenix.Transports.WebSocket,
+  timeout: 45_000
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -31,7 +36,7 @@ defmodule PraterWeb.UserSocket do
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil
 
-  
+
   @max_age 24 * 60 * 60
   def connect(%{"token" => token}, socket) do
     case Phoenix.Token.verify(socket, "user token", token, max_age: @max_age) do
